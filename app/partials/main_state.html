@@ -1,0 +1,10 @@
+<div class="wls-copy">
+    This app uses a controller and service to make RESTful calls to
+    <a href="http://woodylewis.com" target="_blank">my blog</a> (running on a remote Drupal CMS), and retrieves either a list of all published posts or a post from that list. Angular promises are used to handle return values, and strict contextual escaping is used on individual post content. 
+    <p><br>The parent controller stores the list in its scope, and a child controller processes the specific post. The blog domain is prepended to URLs for all images hosted on that domain. Some older articles have different styles.    
+    <p><a href="https://github.com/woodylewis/wls-fetch-blog" target="_blank">GitHub Repo</a>
+</div>
+<div id="wls-button-panel">
+	<a ui-sref="list"><button type="button" class="btn btn-primary">Blog List</button></a>
+	<a ui-sref="sample"><button type="button" class="btn btn-primary" ng-click="showSample()">Sample</button></a>
+</div>
