@@ -1,4 +1,4 @@
-#wls-fetch-blog
+#wls-fetch-json
 
 ```
 bower install angular-bootstrap
