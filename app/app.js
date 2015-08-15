@@ -63,22 +63,23 @@ angular.module('myApp', [
   $scope.showSample = function() {
     fetchBlogService.fetchSample()
     .then(function (data){
-      $scope.sample = data[0].body;      
+      console.log(data);
+      $scope.sample = data.body;
+      //$scope.sample = data[0].body;            
       var jStr = JSON.stringify({ body: $scope.sample});
-      console.log('jStr - ',  jStr);
+      //console.log('jStr - ',  jStr);
       //console.log('sample - ', $scope.sample);
       $state.go('sample');
     }), function (error) {
         console.log('fetch json error', error);
     };
-    /*
-    fetchBlogService.fetchHome()
-    .then(function (markup) {
-      console.log('markup - ', markup);
+
+    fetchBlogService.fetchPayload()
+    .then(function (response) {
+      console.log('response - ', response);
     }), function (error) {
-      console.log('markup error', error);
+      console.log('response error', error);
     };
-    */
   };
 
   function addRemoteDomain(payload) {
@@ -93,16 +94,25 @@ angular.module('myApp', [
   }
 
   $scope.showCurrentPost= function(nid) {
+    var jpost;
     fetchBlogService.fetchBlogPost(nid)
     .then(function(data) {
       $scope.currentPost = addRemoteDomain(data); 
-      //console.log('Post # ' + nid + ' - ' + $scope.currentPost);
-      var jpost = JSON.stringify($scope.currentPost);
-      console.log(jpost);
+      jpost = JSON.stringify({ body: $scope.currentPost});
       var postState = 'post';
       $state.go(postState);
-    }), function(error){
+    })
+    .then(function() {
+      fetchBlogService.postPayload(jpost)
+      .then( function(response) {
+          console.log(response);
+      }), function(error) {
+          console.log('postPayload error ', error);
+      };
+    })
+    , function(error){
         console.log('get posts error', error);
     };
+
   };
 }]);
