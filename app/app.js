@@ -55,7 +55,7 @@ angular.module('myApp', [
   fetchBlogService.fetchBlog()
   .then(function(data) {
     $scope.posts = data;
-    console.log('posts', $scope.posts);
+    //console.log('posts', $scope.posts);
   }), function (error) {
       console.log('get posts error', error);
   };
@@ -64,12 +64,21 @@ angular.module('myApp', [
     fetchBlogService.fetchSample()
     .then(function (data){
       $scope.sample = data[0].body;      
-      JSON.stringify($scope.sample);
-      console.log('sample - ', $scope.sample);
+      var jStr = JSON.stringify({ body: $scope.sample});
+      console.log('jStr - ',  jStr);
+      //console.log('sample - ', $scope.sample);
       $state.go('sample');
     }), function (error) {
         console.log('fetch json error', error);
     };
+    /*
+    fetchBlogService.fetchHome()
+    .then(function (markup) {
+      console.log('markup - ', markup);
+    }), function (error) {
+      console.log('markup error', error);
+    };
+    */
   };
 
   function addRemoteDomain(payload) {
@@ -87,7 +96,9 @@ angular.module('myApp', [
     fetchBlogService.fetchBlogPost(nid)
     .then(function(data) {
       $scope.currentPost = addRemoteDomain(data); 
-      console.log('Post # ' + nid + ' - ' + $scope.currentPost);
+      //console.log('Post # ' + nid + ' - ' + $scope.currentPost);
+      var jpost = JSON.stringify($scope.currentPost);
+      console.log(jpost);
       var postState = 'post';
       $state.go(postState);
     }), function(error){

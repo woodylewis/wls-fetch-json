@@ -7,6 +7,7 @@ angular.module('myApp.services', [])
 		var blogUrl = 'http://woodylewis.com/wls_send.php';
 		var blogPostUrl = 'http://woodylewis.com/wls_send_post.php?';
 		var sampleURL = 'json/sample.json';
+		var homeURL = 'http://localhost:8000/app/index.html';
 
 		var fetchBlog = function() {
 			var deferred = $q.defer();
@@ -47,7 +48,23 @@ angular.module('myApp.services', [])
 			return deferred.promise;
 		}
 
+		var fetchHome = function() {
+			var deferred = $q.defer();
+
+			$http.get(homeURL)
+			.success( function(data) {
+				deferred.resolve(data);
+			})
+			.error(function(reason) {
+				deferred.reject(reason);
+			})
+			return deferred.promise;
+		}
+
 	return {
+		fetchHome: function() {
+			return fetchHome();
+		},
 		fetchSample: function() {
 			return fetchSample();
 		},
