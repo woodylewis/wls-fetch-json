@@ -52,18 +52,20 @@ angular.module('myApp', [
   $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
+  
+  fetchBlogService.fetchManifest()
+  .then(function(posts) {
+      for(var i = 0; i < posts.length; i++) {
+        console.log(posts[i]['nid'] + '|' + posts[i]['title'] + '|' + posts[i]['url']);
+      }
+  })
+  , function(error) {
+      console.log('fetchManifest error ', error);
+  };
+/*      
   var jpost;
   fetchBlogService.fetchBlog()
   .then(function(data) {
-    //$scope.posts = data;
-    //console.log('posts', $scope.posts);
-    //jpost = JSON.stringify($scope.posts);
-    //console.log('JPOST ', jpost);
-    /*
-  }), function (error) {
-      console.log('get posts error', error);
-  };
-  */
     return data;
   })
   .then(function(data) {
@@ -97,7 +99,7 @@ angular.module('myApp', [
       console.log('response error', error);
     };
   };
-
+*/
   function addRemoteDomain(payload) {
     //--- PREPEND DOMAIN TO IMAGE URLs, HANDLE BOTH CASES -----
     var before1 = 'src="/';

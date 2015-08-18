@@ -4,12 +4,26 @@ angular.module('myApp.services', [])
 /* SERVICE TO WRAP HTTP REQUESTS */
 .factory('fetchBlogService' , ['$q', '$http', 
 	function($q, $http) {
-		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php';
-		var blogPostUrl = 'http://woodylewis.com/wls_send_post.php?';
-		var sampleURL = 'json/post.json';
-		var homeURL = 'http://localhost:8000/app/index.html';
-		var fetchURL = 'http://localhost:5000/test_put';
-		var postURL = 'http://localhost:5000/post_json';
+		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php',
+		 	blogPostUrl = 'http://woodylewis.com/wls_send_post.php?',
+			sampleURL = 'json/post.json',
+			homeURL = 'http://localhost:8000/app/index.html',
+			fetchURL = 'http://localhost:5000/test_put',
+			postURL = 'http://localhost:5000/post_json',
+			manifestUrl = 'manifest.json';
+
+		var fetchManifest = function() {
+			var deferred = $q.defer();
+
+			$http.get(manifestUrl)
+			.success( function(data) {
+				deferred.resolve(data);
+			})
+			.error(function(reason) {
+				deferred.reject(reason);
+			})
+			return deferred.promise;
+		}
 
 		var fetchBlog = function() {
 			var deferred = $q.defer();
@@ -84,7 +98,6 @@ angular.module('myApp.services', [])
 		}
 
 		var postPayload = function(payload) {
-			//console.log('PAYLOAD ', payload);
 			var deferred = $q.defer();
 
 			$http.post(postURL, {
@@ -103,6 +116,9 @@ angular.module('myApp.services', [])
 		}
 
 	return {
+		fetchManifest: function() {
+			return fetchManifest();
+		},
 		postPayload: function(payload) {
 			return postPayload(payload);
 		},
