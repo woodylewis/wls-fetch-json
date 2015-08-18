@@ -15,7 +15,7 @@ angular.module('myApp', [
     .state('index', {
       url: "/index",
       views: {
-        "state" : { templateUrl: "partials/main_state.html" },
+        "state" : { templateUrl: "partials/blog_list.html" },
       }
     })
     .state('list', {
@@ -54,62 +54,17 @@ angular.module('myApp', [
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
   
   fetchBlogService.fetchManifest()
-  .then(function(posts) {
+  .then(function (posts) {
+    $scope.posts = posts;
       for(var i = 0; i < posts.length; i++) {
-        console.log(posts[i]['nid'] + '|' + posts[i]['title'] + '|' + posts[i]['url']);
+        //--get post
+        //--bundle date, title, url, body
+        //--post to file write url
+        console.log(i + 1 + ' ' + posts[i]['nid']);
       }
-  })
-  , function(error) {
+  }), function(error) {
       console.log('fetchManifest error ', error);
   };
-/*      
-  var jpost;
-  fetchBlogService.fetchBlog()
-  .then(function(data) {
-    return data;
-  })
-  .then(function(data) {
-    jpost = JSON.stringify(data);
-    fetchBlogService.postPayload(jpost)
-      .then( function(response) {
-          console.log(response);
-      }), function(error) {
-          console.log('postPayload error ', error);
-      };
-  });
-
-  $scope.showSample = function() {
-    fetchBlogService.fetchSample()
-    .then(function (data){
-      console.log(data);
-      $scope.sample = data.body;
-      //$scope.sample = data[0].body;            
-      var jStr = JSON.stringify({ body: $scope.sample});
-      //console.log('jStr - ',  jStr);
-      //console.log('sample - ', $scope.sample);
-      $state.go('sample');
-    }), function (error) {
-        console.log('fetch json error', error);
-    };
-
-    fetchBlogService.fetchPayload()
-    .then(function (response) {
-      console.log('response - ', response);
-    }), function (error) {
-      console.log('response error', error);
-    };
-  };
-*/
-  function addRemoteDomain(payload) {
-    //--- PREPEND DOMAIN TO IMAGE URLs, HANDLE BOTH CASES -----
-    var before1 = 'src="/';
-    var before2 = 'src="/sites/default/files/';
-    var after1 = 'src="http://woodylewis.com/';
-    var after2 = 'src="http://woodylewis.com/sites/default/files/';
-    var result1 = payload.split(before1).join(after1);
-    var result2 = result1.split(before2).join(after2);
-    return result2;
-  }
 
   $scope.showCurrentPost= function(nid) {
     var jpost;

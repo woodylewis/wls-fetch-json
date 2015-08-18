@@ -22,60 +22,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                 <!--- Font Awesome -->
-                <a class="navbar-brand" href="/" title="Woody Lewis">
-                    <i class="fa fa-home fa-stack-lg fa-inverse"></i>
-                </a>
-                <a class="navbar-brand" href="https://github.com/woodylewis" title="github/woodylewis" target="_blank">
-                    <i class="fa fa-github fa-stack-lg fa-inverse"></i>
-                </a>
-                <a class="navbar-brand" href="http://www.linkedin.com/in/woodylewismba" title="linkedin/woodylewis" target="_blank">
-                    <i class="fa fa-linkedin-square fa-stack-lg fa-inverse"></i>
-                </a>
-                <!--- Font Awesome -->
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="http://wlsllc.com" target="_blank">WLS</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h3>AngularJS - Web Service</h3>
-                    <p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </div><!-- /.container -->
-
-  <!-- SERVICE CONTROLLER -->
-  <div ng-controller="ServiceCtrl">
+  <div ng-controller="ServiceCtrl" class="container">
     <div ui-view="state">
-      <div id="top"></div>
     </div>   
   </div>
-
-
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>

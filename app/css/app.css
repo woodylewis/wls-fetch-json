@@ -12,6 +12,12 @@ body {
     margin-left: 10%;
 }
 
+.wls-slot {
+    width:99%;
+    /*margin: 0 auto;*/
+    text-align: left;    
+}
+
 .wls-blog-post-container {
 	width:70%;
 	margin: 0 auto;
@@ -19,7 +25,7 @@ body {
 }
 
 #wls-blog-list {
-    width:70%;
+    width:98%;
     margin: 0 auto;
     border:1px solid gray;
     padding:1em;
