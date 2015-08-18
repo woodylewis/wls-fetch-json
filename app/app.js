@@ -52,13 +52,29 @@ angular.module('myApp', [
   $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
+  var jpost;
   fetchBlogService.fetchBlog()
   .then(function(data) {
-    $scope.posts = data;
+    //$scope.posts = data;
     //console.log('posts', $scope.posts);
+    //jpost = JSON.stringify($scope.posts);
+    //console.log('JPOST ', jpost);
+    /*
   }), function (error) {
       console.log('get posts error', error);
   };
+  */
+    return data;
+  })
+  .then(function(data) {
+    jpost = JSON.stringify(data);
+    fetchBlogService.postPayload(jpost)
+      .then( function(response) {
+          console.log(response);
+      }), function(error) {
+          console.log('postPayload error ', error);
+      };
+  });
 
   $scope.showSample = function() {
     fetchBlogService.fetchSample()

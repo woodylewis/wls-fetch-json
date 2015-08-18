@@ -4,7 +4,7 @@ angular.module('myApp.services', [])
 /* SERVICE TO WRAP HTTP REQUESTS */
 .factory('fetchBlogService' , ['$q', '$http', 
 	function($q, $http) {
-		var blogUrl = 'http://woodylewis.com/wls_send.php';
+		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php';
 		var blogPostUrl = 'http://woodylewis.com/wls_send_post.php?';
 		var sampleURL = 'json/post.json';
 		var homeURL = 'http://localhost:8000/app/index.html';
@@ -84,7 +84,7 @@ angular.module('myApp.services', [])
 		}
 
 		var postPayload = function(payload) {
-			//console.log('JPOST ', payload);
+			//console.log('PAYLOAD ', payload);
 			var deferred = $q.defer();
 
 			$http.post(postURL, {
