@@ -56,15 +56,32 @@ angular.module('myApp', [
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-      for(var i = 0; i < posts.length; i++) {
-        //--get post
-        //--bundle date, title, url, body
-        //--post to file write url
-        console.log(i + 1 + ' ' + posts[i]['nid']);
-      }
-  }), function(error) {
-      console.log('fetchManifest error ', error);
-  };
+    return $scope.posts[0];
+  })
+  .then(function (post) {
+    var payload;
+    fetchBlogService.fetchBlogPost(post['nid'])
+      .then(function(body) {
+        payload = JSON.stringify({
+          nid: post['nid'],
+          title: post['title'],
+          url: post['url'], 
+          body: body
+        });
+        return payload;
+      })
+      .then(function (payload) {
+        //console.log(payload);  
+        fetchBlogService.postPayload(payload)
+        .then(function(response) {
+            console.log(response);  
+          }), function(error) {
+            console.log('postPayload error ', error);
+          };
+      }), function(error){
+        console.log('get posts error', error);
+      };
+    });
 
   $scope.showCurrentPost= function(nid) {
     var jpost;
