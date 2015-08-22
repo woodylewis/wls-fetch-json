@@ -15,7 +15,8 @@ angular.module('myApp', [
     .state('index', {
       url: "/index",
       views: {
-        "state" : { templateUrl: "partials/blog_list.html" },
+        "state" : { templateUrl: "partials/sample.html" },
+                    controller: "SampleCtrl"
       }
     })
     .state('list', {
@@ -53,6 +54,15 @@ angular.module('myApp', [
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
   
+  fetchBlogService.fetchSample()
+  .then(function (obj) {
+    console.log(obj);
+    $scope.sample = obj.body;
+    $scope.title = obj.title;
+  }), function(error) {
+    console.log('error ', error);
+  };
+/*
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
@@ -82,7 +92,7 @@ angular.module('myApp', [
         console.log('get posts error', error);
       };
     });
-
+*/
   $scope.showCurrentPost= function(nid) {
     var jpost;
     fetchBlogService.fetchBlogPost(nid)

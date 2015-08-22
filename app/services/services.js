@@ -6,7 +6,7 @@ angular.module('myApp.services', [])
 	function($q, $http) {
 		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php',
 		 	blogPostUrl = 'http://woodylewis.com/wls_send_post.php?',
-			sampleURL = 'json/post.json',
+			sampleURL = 'json/blues-mr-david.json',
 			homeURL = 'http://localhost:8000/app/index.html',
 			fetchURL = 'http://localhost:5000/test_put',
 			postURL = 'http://localhost:5000/post_json',
