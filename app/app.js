@@ -15,8 +15,7 @@ angular.module('myApp', [
     .state('index', {
       url: "/index",
       views: {
-        "state" : { templateUrl: "partials/sample.html" },
-                    controller: "SampleCtrl"
+        "state" : { templateUrl: "index.html" },
       }
     })
     .state('list', {
@@ -53,7 +52,13 @@ angular.module('myApp', [
   $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
-
+/*
+  fetchBlogService.getCors()
+  .then(function (response) {
+    console.log('response ', response);
+  }), function(error) {
+    console.log('error ', error);
+  };
   fetchBlogService.fetchSample()
   .then(function (obj) {
     console.log(obj);
@@ -62,14 +67,15 @@ angular.module('myApp', [
   }), function(error) {
     console.log('error ', error);
   };
-/*
+  */
+
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-    return $scope.posts[3];
   })
-  .then(function (post) {
+  angular.forEach($scope.posts, function (post, key) {
     var payload;
+
     fetchBlogService.fetchBlogPost(post['nid'])
       .then(function(body) {
         payload = JSON.stringify({
@@ -81,7 +87,8 @@ angular.module('myApp', [
         return payload;
       })
       .then(function (payload) {
-        console.log(payload);  
+        //console.log(payload);  
+        
         fetchBlogService.postPayload(payload)
         .then(function(response) {
             console.log(response);  
@@ -91,8 +98,11 @@ angular.module('myApp', [
       }), function(error){
         console.log('get posts error', error);
       };
-    });
-*/
+
+    }), function(error){
+        console.log('get posts error', error);
+    };
+
   $scope.showCurrentPost= function(nid) {
     var jpost;
     fetchBlogService.fetchBlogPost(nid)

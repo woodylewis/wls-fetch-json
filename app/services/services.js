@@ -10,7 +10,8 @@ angular.module('myApp.services', [])
 			homeURL = 'http://localhost:8000/app/index.html',
 			fetchURL = 'http://localhost:5000/test_put',
 			postURL = 'http://localhost:5000/post_json',
-			manifestUrl = 'manifest.json';
+			manifestUrl = 'manifest.json',
+			corsURL = 'http://node1.wlsllc.com:7200';
 
 		var fetchManifest = function() {
 			var deferred = $q.defer();
@@ -115,7 +116,23 @@ angular.module('myApp.services', [])
 			return deferred.promise;
 		}
 
+		var getCors = function() {
+			var deferred = $q.defer();
+
+			$http.get(corsURL)
+			.success( function(data) {
+				deferred.resolve(data);
+			})
+			.error(function(reason) {
+				deferred.reject(reason);
+			})
+			return deferred.promise;
+		}
+
 	return {
+		getCors: function() {
+			return getCors();
+		},
 		fetchManifest: function() {
 			return fetchManifest();
 		},
