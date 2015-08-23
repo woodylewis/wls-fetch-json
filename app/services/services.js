@@ -8,7 +8,7 @@ angular.module('myApp.services', [])
 		 	blogPostUrl = 'http://woodylewis.com/wls_send_post.php?',
 			sampleURL = 'json/news-not-lap-dance.json',
 			homeURL = 'http://localhost:8000/app/index.html',
-			fetchURL = 'http://localhost:5000/test_put',
+			postManifestURL = 'http://localhost:5000/post_manifest',
 			postURL = 'http://localhost:5000/post_json',
 			manifestUrl = 'manifest.json',
 			corsURL = 'http://node1.wlsllc.com:7200';
@@ -39,10 +39,10 @@ angular.module('myApp.services', [])
 			return deferred.promise;
 		}
 
-		var fetchBlogPost = function(nid) {
+		var fetchPostJSON = function(jsonURL) {
 			var deferred = $q.defer();
 
-			$http.get(blogPostUrl + nid)
+			$http.get(jsonURL)
 			.success( function(data) {
 				deferred.resolve(data);
 			})
@@ -116,10 +116,15 @@ angular.module('myApp.services', [])
 			return deferred.promise;
 		}
 
-		var getCors = function() {
+		var postManifest = function(manifest) {
 			var deferred = $q.defer();
 
-			$http.get(corsURL)
+			$http.post(postManifestURL, {
+				transformRequest: transformRequestAsFormPost,
+				data: manifest,
+ 				headers: {'Content-Type':'application/json'}
+ 				//headers: {'Content-Type':'application/x-www-form-urlencoded'}
+			})
 			.success( function(data) {
 				deferred.resolve(data);
 			})
@@ -130,11 +135,11 @@ angular.module('myApp.services', [])
 		}
 
 	return {
-		getCors: function() {
-			return getCors();
-		},
 		fetchManifest: function() {
 			return fetchManifest();
+		},
+		postManifest: function(manifest) {
+			return postManifest(manifest);
 		},
 		postPayload: function(payload) {
 			return postPayload(payload);
@@ -151,8 +156,8 @@ angular.module('myApp.services', [])
 		fetchBlog: function() {
 			return fetchBlog();
 		},
-		fetchBlogPost: function(nid) {
-			return fetchBlogPost(nid);
+		fetchPostJSON: function(jsonURL) {
+			return fetchPostJSON(jsonURL);
 		}
 	};
 }]);

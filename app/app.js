@@ -52,77 +52,79 @@ angular.module('myApp', [
   $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
-/*
-  fetchBlogService.getCors()
-  .then(function (response) {
-    console.log('response ', response);
-  }), function(error) {
-    console.log('error ', error);
-  };
-  fetchBlogService.fetchSample()
-  .then(function (obj) {
-    console.log(obj);
-    $scope.sample = obj.body;
-    $scope.title = obj.title;
-  }), function(error) {
-    console.log('error ', error);
-  };
-  */
-
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-  })
-  angular.forEach($scope.posts, function (post, key) {
-    var payload;
+    $state.go('list');
+  }), function(error){
+      console.log('get posts error', error);
+  };
 
-    fetchBlogService.fetchBlogPost(post['nid'])
-      .then(function(body) {
-        payload = JSON.stringify({
-          nid: post['nid'],
-          title: post['title'],
-          url: post['url'], 
-          body: body
-        });
-        return payload;
-      })
-      .then(function (payload) {
-        //console.log(payload);  
-        
-        fetchBlogService.postPayload(payload)
-        .then(function(response) {
-            console.log(response);  
-          }), function(error) {
-            console.log('postPayload error ', error);
-          };
+  $scope.fetchManifest = function() {
+    fetchBlogService.fetchBlog()
+    .then(function (manifest) {
+      //console.log('MANIFEST', manifest);
+      return manifest
+    })
+    .then(function (manifest) {
+      fetchBlogService.postManifest(manifest)
+      .then(function(response) {
+        console.log(response);  
       }), function(error){
-        console.log('get posts error', error);
+        console.log('post manifest error', error);
       };
+    }), function(error){
+      console.log('get posts error', error);
+    };
+  };
 
+  $scope.fetchAndRetrievePosts = function() {
+    fetchBlogService.fetchManifest()
+    .then(function (posts) {
+      $scope.posts = posts;
+    })
+    angular.forEach($scope.posts, function (post, key) {
+      var payload;
+
+      fetchBlogService.fetchBlogPost(post['nid'])
+        .then(function(body) {
+          payload = JSON.stringify({
+            nid: post['nid'],
+            title: post['title'],
+            url: post['url'], 
+            body: body
+          });
+          return payload;
+        })
+        .then(function (payload) {
+          fetchBlogService.postPayload(payload)
+          .then(function(response) {
+              console.log(response);  
+            }), function(error) {
+              console.log('postPayload error ', error);
+            };
+        }), function(error){
+          console.log('get posts error', error);
+        };
+      }), function(error){
+          console.log('angular forEach error', error);
+      };
+  };
+
+  $scope.fetchPost= function(url) {
+    var dir = 'json/',
+        filetype = '.json',
+        titlePos = url.indexOf('content'),
+        title = dir + url.substr(titlePos + 8) + filetype;
+        
+    fetchBlogService.fetchPostJSON(title)
+    .then(function(data) {
+      console.log(data);
+      //$state.go();
     }), function(error){
         console.log('get posts error', error);
     };
 
-  $scope.showCurrentPost= function(nid) {
-    var jpost;
-    fetchBlogService.fetchBlogPost(nid)
-    .then(function(data) {
-      $scope.currentPost = addRemoteDomain(data); 
-      jpost = JSON.stringify({ body: $scope.currentPost});
-      var postState = 'post';
-      $state.go(postState);
-    })
-    .then(function() {
-      fetchBlogService.postPayload(jpost)
-      .then( function(response) {
-          console.log(response);
-      }), function(error) {
-          console.log('postPayload error ', error);
-      };
-    })
-    , function(error){
-        console.log('get posts error', error);
-    };
-
   };
+
 }]);
