@@ -6,7 +6,7 @@ angular.module('myApp.services', [])
 	function($q, $http) {
 		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php',
 		 	blogPostUrl = 'http://woodylewis.com/wls_send_post.php?',
-			sampleURL = 'json/blues-mr-david.json',
+			sampleURL = 'json/news-not-lap-dance.json',
 			homeURL = 'http://localhost:8000/app/index.html',
 			fetchURL = 'http://localhost:5000/test_put',
 			postURL = 'http://localhost:5000/post_json',
@@ -103,8 +103,8 @@ angular.module('myApp.services', [])
 			$http.post(postURL, {
 				transformRequest: transformRequestAsFormPost,
 				data: payload,
- 				//headers: {'Content-Type':'application/json'}
- 				headers: {'Content-Type':'application/x-www-form-urlencoded'}
+ 				headers: {'Content-Type':'application/json'}
+ 				//headers: {'Content-Type':'application/x-www-form-urlencoded'}
 			})
 			.success( function(data) {
 				deferred.resolve(data);

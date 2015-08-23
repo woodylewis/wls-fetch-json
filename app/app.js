@@ -53,7 +53,7 @@ angular.module('myApp', [
   $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
-  
+
   fetchBlogService.fetchSample()
   .then(function (obj) {
     console.log(obj);
@@ -66,7 +66,7 @@ angular.module('myApp', [
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-    return $scope.posts[0];
+    return $scope.posts[3];
   })
   .then(function (post) {
     var payload;
@@ -81,7 +81,7 @@ angular.module('myApp', [
         return payload;
       })
       .then(function (payload) {
-        //console.log(payload);  
+        console.log(payload);  
         fetchBlogService.postPayload(payload)
         .then(function(response) {
             console.log(response);  
