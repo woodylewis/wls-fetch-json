@@ -6,39 +6,51 @@ angular.module('myApp', [
 	'ui.bootstrap.tpls',
   'ui.router'
 ])
-.config(['$stateProvider', '$urlRouterProvider', 
+.config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider
-  .otherwise('/index');
 
   $stateProvider
     .state('index', {
       url: "/index",
       views: {
-        "state" : { templateUrl: "index.html" },
+        "state" : { templateUrl: "index.html" }
       }
     })
     .state('list', {
       url: "/list",
       views: {
-        "state" : { templateUrl: "partials/blog_list.html" },
-        }
+        "state" : { templateUrl: "partials/blog_list.html" }
+      }
     })
-    .state('sample', {
-      url: "/sample",
+    .state('content', {
+      url: "/content",
       views: {
-        "state" : { templateUrl: "partials/sample.html" },
-                    controller: "SampleCtrl"
+        "state" : { templateUrl: 'partials/content.html' }
+      }
+    })
+    .state('content2', {
+      url: "/content/:contentId",
+      views: {
+        "state" : { templateUrl: 'partials/content2.html',
+          controller: function ($scope, $stateParams) {
+              console.log($stateParams.contentId);
+              console.log($scope.posts);
+            }
         }
+      }
     })
     .state('post', {
       url: "/post",
       views: {
         "state" : { 
-                    templateUrl: "partials/blog_post.html" },
-                    controller: "PostCtrl"
+          templateUrl: "partials/blog_post.html" },
+          controller: "PostCtrl"
       }
-    })
+    });
+
+  $urlRouterProvider
+  .otherwise('/index');
+
 }])
 .controller('PostCtrl', ['$scope', '$sce', '$anchorScroll', '$location', function($scope, $sce, $anchorScroll, $location) {
   //------  STRICT CONTEXTUAL ESCAPING OF CONTENT FROM REMOTE DOMAIN -----
@@ -55,7 +67,7 @@ angular.module('myApp', [
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-    $state.go('list');
+    //$state.go('list');
   }), function(error){
       console.log('get posts error', error);
   };
