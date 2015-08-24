@@ -2,6 +2,7 @@
 	<a ui-sref="list"><button type="button" class="btn btn-primary">Blog List</button></a>
 </div>
 <div ng-controller="PostCtrl" class="wls-blog-post-container">
+	{{date}}<br>
 	<!-- BIND THE TRUSTED HTML -->
 	<div ng-bind-html="markup"></div>
 </div>

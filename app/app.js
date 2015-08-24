@@ -111,7 +111,7 @@ angular.module('myApp', [
       };
   };
 
-  $scope.fetchPost= function(url) {
+  $scope.fetchPost= function(url, date) {
     var dir = 'json/',
         filetype = '.json',
         titlePos = url.indexOf('content'),
@@ -119,8 +119,11 @@ angular.module('myApp', [
         
     fetchBlogService.fetchPostJSON(title)
     .then(function(data) {
+      console.log(date);
       console.log(data);
-      //$state.go();
+      $scope.date = date;
+      $scope.currentPost = data.body;
+      $state.go('post');
     }), function(error){
         console.log('get posts error', error);
     };
