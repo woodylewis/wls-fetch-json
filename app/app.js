@@ -32,9 +32,12 @@ angular.module('myApp', [
       url: "/content/:contentId",
       views: {
         "state" : { templateUrl: 'partials/content2.html',
-          controller: function ($scope, $stateParams) {
+          controller: function ($scope, $filter, $stateParams) {
               console.log($stateParams.contentId);
-              console.log($scope.posts);
+              //console.log($scope.posts);
+              var filterStr = 'content/' + $stateParams.contentId;
+              $scope.filtered = $filter('filter')($scope.posts, {url: filterStr});
+              console.log($scope.filtered);
             }
         }
       }
