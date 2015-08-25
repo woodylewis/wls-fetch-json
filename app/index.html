@@ -11,9 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
-  <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/wls.css">
+  <link rel="stylesheet" href="css/app.css">
   <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
@@ -23,11 +22,15 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   <div ng-controller="ServiceCtrl" class="container">
-    <div ui-view="state">
-    <div id="wls-button-panel">
-      <a ui-sref="list"><button type="button" class="btn btn-primary">Blog List</button></a>
-    </div>
-    </div>   
+    <div class="row">
+      <div class="twelve columns">
+        <div ui-view="state">
+          <div id="wls-button-panel">
+            <a ui-sref="list"><button type="button" class="btn btn-primary">Blog List</button></a>
+          </div>
+        </div> 
+      </div>
+    </div>     
   </div>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
