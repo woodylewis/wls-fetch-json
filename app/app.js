@@ -2,8 +2,6 @@
 
 angular.module('myApp', [
   'myApp.services',
-	'ui.bootstrap',
-	'ui.bootstrap.tpls',
   'ui.router'
 ])
 .config(['$stateProvider', '$urlRouterProvider',
@@ -23,15 +21,10 @@ angular.module('myApp', [
       }
     })
     .state('content', {
-      url: "/content",
-      views: {
-        "state" : { templateUrl: 'partials/content.html' }
-      }
-    })
-    .state('content2', {
       url: "/content/:contentId",
       views: {
-        "state" : { templateUrl: 'partials/content2.html',
+        "state" : { 
+          templateUrl: 'partials/content2.html',
           controller: function ($scope, $filter, $stateParams) {
               var filterStr = 'content/' + $stateParams.contentId,
                   filtered = $filter('filter')($scope.posts, {url: filterStr});
