@@ -33,11 +33,11 @@ angular.module('myApp', [
       views: {
         "state" : { templateUrl: 'partials/content2.html',
           controller: function ($scope, $filter, $stateParams) {
-              console.log($stateParams.contentId);
-              //console.log($scope.posts);
-              var filterStr = 'content/' + $stateParams.contentId;
-              $scope.filtered = $filter('filter')($scope.posts, {url: filterStr});
-              console.log($scope.filtered);
+              var filterStr = 'content/' + $stateParams.contentId,
+                  filtered = $filter('filter')($scope.posts, {url: filterStr});
+              console.log(filtered[0].url);
+              console.log(filtered[0].date);
+              $scope.fetchPost(filtered[0].url, filtered[0].date);
             }
         }
       }
