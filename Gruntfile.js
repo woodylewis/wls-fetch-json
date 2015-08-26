@@ -10,7 +10,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "app/css/skeleton.css": "app/less/skeleton.less",
-                    "app/css/wls.css": "app/less/wls.less"
+                    "app/css/wls.css": "app/less/wls.less",
+                    "app/css/app.css": "app/less/app.less",
                 }
             }
         },

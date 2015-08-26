@@ -1,48 +1,30 @@
-/* app css stylesheet */
-
-.wls-click, .nav a { cursor: pointer; }
-
+.wls-click,
+.nav a {
+  cursor: pointer;
+}
 body {
-    text-align: center;
-    color: #000;
-    padding: 5em;
+  text-align: center;
+  color: #000;
+  padding: 5em;
 }
-
+img {
+  max-width: 100%;
+  height: auto;
+}
 .wls-click {
-    margin-left: 10%;
+  margin-left: 10%;
 }
-
-.wls-slot {
-    width:99%;
-    /*margin: 0 auto;*/
-    text-align: left;    
-}
-
 .wls-blog-post-container {
-	width:70%;
-	margin: 0 auto;
-	text-align: left;
+  text-align: left;
 }
-
-#wls-blog-list {
-    /*width:98%;
-    margin: 0 auto;*/
-    border:1px solid gray;
-    padding:1em;
+.wls-blog-list {
+  border: 1px solid gray;
+  padding: 1em;
+  width: 100%;
 }
-
 .wls-blog-list-container {
-    text-align: left;
+  text-align: left;
 }
-
-.wls-copy {
-    margin-left:5%;
-    margin-bottom:5%;
-    text-align: left;
-    border:1px solid gray;
-    padding:1em;
-}
-
-#wls-button-panel {
-    margin:1em;
+.wls-button-panel {
+  margin: 1em;
 }
