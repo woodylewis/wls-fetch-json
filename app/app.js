@@ -7,6 +7,9 @@ angular.module('myApp', [
 .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
+  //$urlRouterProvider
+  //.otherwise('/index');
+
   $stateProvider
     .state('index', {
       url: "/index",
@@ -43,9 +46,6 @@ angular.module('myApp', [
           controller: "PostCtrl"
       }
     });
-
-  $urlRouterProvider
-  .otherwise('/index');
 
 }])
 .controller('PostCtrl', ['$scope', '$sce', '$anchorScroll', '$location', function($scope, $sce, $anchorScroll, $location) {
