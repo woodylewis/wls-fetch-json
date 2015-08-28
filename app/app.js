@@ -17,6 +17,19 @@ angular.module('myApp', [
         "state" : { templateUrl: "index.html" }
       }
     })
+    .state('about', {
+      url: "/about",
+      views: {
+        "state" : { templateUrl: "partials/about.html" }
+      }
+    })
+
+    .state('words', {
+      url: "/words",
+      views: {
+        "state" : { templateUrl: "partials/words.html" }
+      }
+    })
     .state('list', {
       url: "/list",
       views: {
@@ -27,16 +40,20 @@ angular.module('myApp', [
       url: "/content/:contentId",
       views: {
         "state" : { 
+          templateUrl: "partials/blog_post.html",
           controller: function ($scope, $filter, $stateParams) {
               var filterStr = 'content/' + $stateParams.contentId,
                   filtered = $filter('filter')($scope.posts, {url: filterStr});
+
+        console.log('FILTERED ', filtered);
+              //$scope.fetchPost(filtered.url, filtered.date);
               $scope.fetchPost(filtered[0].url, filtered[0].date);
             }
         }
       }
     })
     .state('post', {
-      url: "/content",
+      url: "/post",
       views: {
         "state" : { 
           templateUrl: "partials/blog_post.html" },
@@ -49,8 +66,8 @@ angular.module('myApp', [
   //------  STRICT CONTEXTUAL ESCAPING OF CONTENT FROM REMOTE DOMAIN -----
   $scope.markup = $sce.trustAsHtml($scope.$parent.currentPost);
   //----- CHANGE THE URL TO SOMETHING MEANINGFUL
-  $location.url($scope.$parent.currentURL);
-  $anchorScroll();
+  //$location.url($scope.$parent.currentURL);
+  //$anchorScroll();
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
   fetchBlogService.fetchManifest()
@@ -111,6 +128,7 @@ angular.module('myApp', [
   };
 
   $scope.fetchPost= function(url, date) {
+console.log('URL ', url);
     var dir = 'json/',
         filetype = '.json',
         titlePos = url.indexOf('content'),
