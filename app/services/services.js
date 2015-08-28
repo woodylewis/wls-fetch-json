@@ -6,12 +6,10 @@ angular.module('myApp.services', [])
 	function($q, $http) {
 		var blogUrl = 'http://woodylewis.com/wls_send_jlist.php',
 		 	blogPostUrl = 'http://woodylewis.com/wls_send_post.php?',
-			sampleURL = 'json/news-not-lap-dance.json',
 			homeURL = 'http://localhost:8000/app/index.html',
 			postManifestURL = 'http://localhost:5000/post_manifest',
 			postURL = 'http://localhost:5000/post_json',
-			manifestUrl = 'manifest.json',
-			corsURL = 'http://node1.wlsllc.com:7200';
+			manifestUrl = 'manifest.json';
 
 		var fetchManifest = function() {
 			var deferred = $q.defer();
@@ -52,31 +50,6 @@ angular.module('myApp.services', [])
 			return deferred.promise;
 		}
 
-		var fetchSample = function() {
-			var deferred = $q.defer();
-
-			$http.get(sampleURL)
-			.success( function(data) {
-				deferred.resolve(data);
-			})
-			.error(function(reason) {
-				deferred.reject(reason);
-			})
-			return deferred.promise;
-		}
-
-		var fetchHome = function() {
-			var deferred = $q.defer();
-
-			$http.get(homeURL)
-			.success( function(data) {
-				deferred.resolve(data);
-			})
-			.error(function(reason) {
-				deferred.reject(reason);
-			})
-			return deferred.promise;
-		}
 
 		var fetchPayload = function() {
 			var deferred = $q.defer();
@@ -146,12 +119,6 @@ angular.module('myApp.services', [])
 		},
 		fetchPayload: function() {
 			return fetchPayload();
-		},
-		fetchHome: function() {
-			return fetchHome();
-		},
-		fetchSample: function() {
-			return fetchSample();
 		},
 		fetchBlog: function() {
 			return fetchBlog();

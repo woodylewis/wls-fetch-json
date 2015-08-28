@@ -7,8 +7,8 @@ angular.module('myApp', [
 .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
-  //$urlRouterProvider
-  //.otherwise('/index');
+  $urlRouterProvider
+  .otherwise('/index');
 
   $stateProvider
     .state('index', {
@@ -27,19 +27,16 @@ angular.module('myApp', [
       url: "/content/:contentId",
       views: {
         "state" : { 
-          templateUrl: 'partials/content2.html',
           controller: function ($scope, $filter, $stateParams) {
               var filterStr = 'content/' + $stateParams.contentId,
                   filtered = $filter('filter')($scope.posts, {url: filterStr});
-              console.log(filtered[0].url);
-              console.log(filtered[0].date);
               $scope.fetchPost(filtered[0].url, filtered[0].date);
             }
         }
       }
     })
     .state('post', {
-      url: "/post",
+      url: "/content",
       views: {
         "state" : { 
           templateUrl: "partials/blog_post.html" },
@@ -51,19 +48,14 @@ angular.module('myApp', [
 .controller('PostCtrl', ['$scope', '$sce', '$anchorScroll', '$location', function($scope, $sce, $anchorScroll, $location) {
   //------  STRICT CONTEXTUAL ESCAPING OF CONTENT FROM REMOTE DOMAIN -----
   $scope.markup = $sce.trustAsHtml($scope.$parent.currentPost);
-  //----- OLDER POSTS FURTHER DOWN THE LIST NEED TO BE SCROLLED TO THEIR TOP LINE
-  $location.hash('top');
+  //----- CHANGE THE URL TO SOMETHING MEANINGFUL
+  $location.url($scope.$parent.currentURL);
   $anchorScroll();
-}])
-.controller('SampleCtrl', ['$scope', '$sce', '$anchorScroll', '$location', function($scope, $sce, $anchorScroll, $location) {
-  //------  STRICT CONTEXTUAL ESCAPING OF CONTENT FROM REMOTE DOMAIN -----
-  $scope.sample = $sce.trustAsHtml($scope.$parent.sample);
 }])
 .controller('ServiceCtrl', ['$scope', '$state', 'fetchBlogService', function($scope, $state, fetchBlogService) {
   fetchBlogService.fetchManifest()
   .then(function (posts) {
     $scope.posts = posts;
-    //$state.go('list');
   }), function(error){
       console.log('get posts error', error);
   };
@@ -71,7 +63,6 @@ angular.module('myApp', [
   $scope.fetchManifest = function() {
     fetchBlogService.fetchBlog()
     .then(function (manifest) {
-      //console.log('MANIFEST', manifest);
       return manifest
     })
     .then(function (manifest) {
@@ -124,11 +115,10 @@ angular.module('myApp', [
         filetype = '.json',
         titlePos = url.indexOf('content'),
         title = dir + url.substr(titlePos + 8) + filetype;
-        
+
+    $scope.currentURL = url;    
     fetchBlogService.fetchPostJSON(title)
     .then(function(data) {
-      console.log(date);
-      console.log(data);
       $scope.date = date;
       $scope.currentPost = data.body;
       $state.go('post');
