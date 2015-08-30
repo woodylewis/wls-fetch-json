@@ -45,7 +45,7 @@ angular.module('myApp', [
           controller: function ($scope, $filter, $stateParams) {
               var filterStr = 'content/' + $stateParams.contentId,
                   filtered = $filter('filter')($scope.posts, {url: filterStr});
-              $scope.fetchPost(filtered[0].url, filtered[0].date);
+              $scope.fetchPost(filtered[0].url, filtered[0].date, filtered[0].title);
             }
         }
       }
@@ -127,7 +127,8 @@ angular.module('myApp', [
       };
   };
 
-  $scope.fetchPost= function(url, date) {
+  $scope.fetchPost= function(url, date, title) {
+    $scope.currentTitle = title;
     var dir = 'json/',
         filetype = '.json',
         titlePos = url.indexOf('content'),
