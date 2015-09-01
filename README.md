@@ -10,9 +10,6 @@ the blog posts from Drupal and wrote out the JSON files now
 used in the S3 bucket. Those files are a placeholder for an 
 instance of MongoDB, to be spun up in the near future.
 ```
-bower install angular-bootstrap
-```
-```
 bower install angular-ui-router
 ```
 ```
