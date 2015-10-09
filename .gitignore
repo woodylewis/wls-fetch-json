@@ -6,3 +6,5 @@ tmp
 .DS_Store
 .idea
 npm-debug.log
+*.sublime-project
+*.sublime-workspace
