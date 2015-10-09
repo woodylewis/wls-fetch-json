@@ -54,11 +54,17 @@ angular.module('myApp', [
       url: "/post",
       views: {
         "state" : { 
-          templateUrl: "partials/blog_post.html" },
-          controller: "PostCtrl"
+          templateUrl: "partials/blog_post.html" ,
+          controller: function ($scope, $sce, $anchorScroll, $location) {
+            $scope.markup = $sce.trustAsHtml($scope.$parent.currentPost);
+            $location.url($scope.$parent.currentURL);
+            $location.hash('top');
+            $anchorScroll();
+            console.log('IN CONTROLLER');
+          }
       }
-    });
-
+    }
+  });
 }])
 .controller('PostCtrl', ['$scope', '$sce', '$anchorScroll', '$location', function($scope, $sce, $anchorScroll, $location) {
   //------  STRICT CONTEXTUAL ESCAPING OF CONTENT FROM REMOTE DOMAIN -----
